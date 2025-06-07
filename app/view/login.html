@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Wine Quality Prediction{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Вход <i class="fas fa-sign-in-alt"></i></h2>
+                    {% for error in errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    <form action="/auth/login" method="post">
+                        <div class="form-group">
+                            <label for="username">Email</label>
+                            <input type="email" class="form-control" id="username" name="username" value="{{ username }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Пароль</label>
+                            <input type="password" class="form-control" id="password" name="password" value="{{ password }}" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                    </form>
+                    <hr>
+                    <p class="text-center">
+                        Ещё не зарегистрированы? <a href="/auth/register">Регистрация</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

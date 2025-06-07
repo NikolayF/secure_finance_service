@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Пополнение баланса{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    
+                    <div class="alert alert-info text-center" role="alert">
+                        Текущий баланс: {{ current_balance }} RUB
+                    </div>
+
+                    <h2 class="card-title text-center">Пополнение баланса <i class="fas fa-coins"></i></h2>
+
+                    {% for error in errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                    {% if success %}
+                        <div class="alert alert-success" role="alert">
+                            {{ success }}
+                        </div>
+                    {% endif %}
+
+                    <form action="/balance/increase_balance" method="post">
+                        <div class="form-group">
+                            <label for="amount">Сумма пополнения</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="amount" name="amount" step="0.01" value="{{ default_amount }}" required>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">RUB</span>
+                                </div>
+                            </div>
+                            <small class="form-text text-muted">Укажите сумму для пополнения вашего баланса.</small>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Пополнить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

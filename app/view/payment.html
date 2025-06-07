@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Ввод данных для перевода{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Информация для перевода</h2>
+
+                    {% for error in errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                    {% for success_message in success %}
+                        <div class="alert alert-success" role="alert">
+                            {{ success_message }}
+                        </div>
+                    {% endfor %}
+
+                    <form action="/ml_model/predict" method="post">
+                        <div class="mb-3" style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
+                            <h5 class="card-subtitle mb-2 text-muted">Данные получателя</h5>
+                            <div class="form-group">
+                                <label for="recipient_card_number">Номер карты получателя</label>
+                                <input type="text" class="form-control" id="recipient_card_number" name="recipient_card_number" placeholder="XXXX XXXX XXXX XXXX" required maxlength="19">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bank_name">Банк получателя</label>
+                                <select class="form-control" id="bank_name" name="bank_name" required>
+                                    <option value="" selected disabled>Выберите банк</option>
+                                    <option value="sberbank">Сбербанк</option>
+                                    <option value="vtb">ВТБ</option>
+                                    <option value="tinkoff">Т-Банк</option>
+                                    <option value="alfabank">Альфа-Банк</option>
+                                    <option value="opg">ОПГ-Банк</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3" style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
+                            <h5 class="card-subtitle mb-2 text-muted">Данные отправителя</h5>
+                            <div class="form-group">
+                                <label for="card_number">Номер карты отправителя</label>
+                                <input type="text" class="form-control" id="card_number" name="card_number" placeholder="XXXX XXXX XXXX XXXX" required maxlength="19">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="expiry_date">Срок действия</label>
+                                    <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="MM/ГГ" required maxlength="5">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" name="cvv" placeholder="XXX" required maxlength="3">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardholder_name">Имя владельца карты</label>
+                                <input type="text" class="form-control" id="cardholder_name" name="cardholder_name" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Сумма перевода</label>
+                            <input type="number" class="form-control" id="amount" name="amount" placeholder="Введите сумму" required min="0.01" step="0.01">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Оплатить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const recipientCardNumberInput = document.getElementById('recipient_card_number');
+            const cardNumberInput = document.getElementById('card_number');
+            const expiryDateInput = document.getElementById('expiry_date');
+            const cvvInput = document.getElementById('cvv');
+
+
+            recipientCardNumberInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\s/g, ''); 
+                if (value.length > 16) {
+                    value = value.slice(0, 16);
+                }
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) {
+                        formattedValue += ' ';
+                    }
+                    formattedValue += value[i];
+                }
+                e.target.value = formattedValue;
+            });
+
+            cardNumberInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\s/g, ''); 
+                if (value.length > 16) {
+                    value = value.slice(0, 16);
+                }
+                let formattedValue = '';
+                for (let i = 0; i < value.length; i++) {
+                    if (i > 0 && i % 4 === 0) {
+                        formattedValue += ' ';
+                    }
+                    formattedValue += value[i];
+                }
+                e.target.value = formattedValue;
+            });
+
+            expiryDateInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, ''); 
+                if (value.length > 2) {
+                    value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                }
+                e.target.value = value;
+            });
+        });
+    </script>
+{% endblock %}

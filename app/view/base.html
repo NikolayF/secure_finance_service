@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% block head %}
+        <style>
+            body {
+                padding-top: 56px;
+                font-family: 'Arial', sans-serif;
+                background-color: #f8f9fa;
+            }
+            .navbar {
+                background-color: #0056b3 !important;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+            .navbar-brand, .navbar-nav .nav-link {
+                color: white !important;
+            }
+            .navbar-nav .nav-link:hover {
+                color: #cce5ff !important;
+            }
+            .container {
+                padding-top: 20px;
+            }
+            .card {
+                border: none;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            .btn-primary {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+            .btn-primary:hover {
+                background-color: #003366;
+                border-color: #003366;
+            }
+            .alert {
+                border-radius: 0;
+            }
+        </style>
+    {% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="/">Secure Finance Service</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Главная <span class="sr-only">(current)</span></a> 
+                </li>
+                {% if user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ml_model/payment"><i class="fas fa-chart-line"></i>Финансовые операции</a> 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ml_model/prediction_log"><i class="fas fa-history"></i> История операций</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/balance/options"><i class="fas fa-wallet"></i> Баланс</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/logout"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/login"><i class="fas fa-sign-in-alt"></i> Войти</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/register"><i class="fas fa-user-plus"></i> Регистрация</a> 
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

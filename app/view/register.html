@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Wine Quality Prediction{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Регистрация <i class="fas fa-user-plus"></i></h2>
+                    {% for error in errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    <form action="/user/signup" method="post">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ email }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Пароль</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password">Повторите пароль</label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                    </form>
+                    <hr>
+                    <p class="text-center">
+                        Уже зарегистрированы? <a href="/auth/login">Войти</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Лог выполнения предсказания{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-center">История операций</h2>
+
+            {% if errors %}
+              {% for error in errors %}
+                <div class="alert alert-danger" role="alert">
+                  {{ error }}
+                </div>
+              {% endfor %}
+            {% endif %}
+
+
+            {% if logs %}
+              <h3 class="mt-4">Последние действия:</h3>
+              <div class="list-group">
+                {% for log_entry in logs %}
+                  <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">{{ log_entry.description }}</h5>
+                      <small>{{ log_entry.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                    </div>
+                    <small>ID события: {{ log_entry.id }}, Тип события: {{ log_entry.event_type }}, ID операции: {{ log_entry.model_request_id }}</small>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

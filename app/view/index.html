@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+Сервис безопасных денежных переводов
+{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .hero {
+            background-color: #e9ecef;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .finance-icon {
+            font-size: 4em;
+            color: #0056b3;
+        }
+
+        .feature {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .feature i {
+            font-size: 2em;
+            color: #0056b3; 
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-primary:hover {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .secure-badge {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+    <div class="hero">
+        <div class="container">
+            <i class="fas fa-lock finance-icon"></i> 
+            <h1>Безопасные и мгновенные денежные переводы</h1>
+            <p>Защитите свои финансовые операции с нашим надежным сервисом.</p> 
+            {% if not user %}
+                <a href="/auth/login" class="btn btn-primary btn-lg">Начать</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 feature">
+                <i class="fas fa-shield-alt"></i> 
+                <h3>Максимальная защита переводов</h3>
+                <p>Мы используем передовые технологии шифрования для защиты каждого вашего перевода.</p> 
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fas fa-check-circle"></i> 
+                <h3>Гарантия безопасности транзакций</h3>
+                <p>Каждая транзакция проходит многоуровневую проверку для предотвращения мошенничества.</p>
+            </div>
+            <div class="col-md-4 feature">
+                <i class="fas fa-piggy-bank"></i>
+                <h3>Конфиденциальность и сохранность средств</h3>
+                <p>Ваши средства в безопасности, а личные данные надежно защищены от несанкционированного доступа.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        {% if user %}
+            <h2>Добро пожаловать, {{ user }}!</h2>
+            <p>
+                Вы вошли в систему и можете безопасно отправлять и получать денежные переводы. <br> 
+                Перейти к <a href="/ml_model/predict" class="btn btn-primary">Просмотру операций</a> 
+                Посмотреть <a href="/ml_model/prediction_log" class="btn btn-primary">Историю транзакций</a>
+            </p>
+        {% else %}
+            <h2>Готовы отправлять и получать деньги безопасно?</h2>
+            <p>
+                Создайте учетную запись, чтобы воспользоваться нашим сервисом надежных денежных переводов.<br>
+                <a href="/auth/register" class="btn btn-primary">Зарегистрироваться</a> или
+                <a href="/auth/login" class="btn btn-primary">Войти</a>!
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}
