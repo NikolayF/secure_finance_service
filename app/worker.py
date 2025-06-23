@@ -34,7 +34,7 @@ def callback(ch, method, properties, body):
             db.commit()
 
             #Осуществляем проверку операции через модель:
-            time.sleep(10)
+            
 
             if bank_name != 'opg':
 
@@ -43,7 +43,8 @@ def callback(ch, method, properties, body):
                 db.commit()
                 ch.basic_ack(delivery_tag=method.delivery_tag)
             
-            else:               
+            else:        
+                time.sleep(7)       
                 ModelService.cancel_prediction(name, Balance, amount, db, model_request_id)
 
                 db.commit()

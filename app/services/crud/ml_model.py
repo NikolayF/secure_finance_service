@@ -45,7 +45,7 @@ def cancel_prediction(model, balance, source_amount: float, session, model_reque
         #Передаём параметры для определения мошеннической транзакции и записываем в лог результат
         pass
     else:
-        description = f'Операция отклонена, денежные средства вернулись на ваш счёт'
+        description = f'Операция отклонена, обнаружен подозрительный перевод'
         log = Log(
             user_id=balance.user_id,
             model_request_id=model_request_id,
